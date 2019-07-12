@@ -4,11 +4,17 @@ import 'firebase/database';
 
 import GoogleSignIn from './components/GoogleSignIn.vue';
 
+import eventsPlugin from 'vue-event-emitter-plugin';
+
 export default {
   install(Vue, options = {}) {
     const { config } = options;
     if (!config) {
       throw 'Auth plugin requires firebase config object!';
+    }
+
+    if (!Vue.prototype.$events) {
+      Vue.use(eventsPlugin);
     }
 
     const firebase = Firebase.initializeApp(config);
@@ -62,9 +68,9 @@ export default {
 
     auth.onAuthStateChanged(user => {
       if (user) {
-        Vue.prototype.$emit('login', user);
+        Vue.prototype.$events.emit('login', user);
       } else {
-        Vue.prototype.$emit('logout');
+        Vue.prototype.$events.emit('logout');
       }
     });
   }

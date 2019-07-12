@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^6.3.0",
-    "firebaseui": "^4.0.0"
+    "firebaseui": "^4.0.0",
+    "vue-event-emitter-plugin": "bojko108/vue-event-emitter-plugin"
   }
 }

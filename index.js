@@ -29,6 +29,7 @@ export default {
      * Register firebase authentication methods
      */
     Vue.prototype.$auth = {
+      auth,
       createUserWithEmailAndPassword: async (email, pass) => {
         try {
           return await auth.createUserWithEmailAndPassword(email, pass);

@@ -2,6 +2,8 @@ import * as Firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
+import GoogleSignIn from './components/GoogleSignIn.vue';
+
 export default {
   install(Vue, options = {}) {
     const { config } = options;
@@ -12,22 +14,30 @@ export default {
     const firebase = Firebase.initializeApp(config);
     const auth = firebase.auth();
 
+    /**
+     * Register a global component for GoogleSignIn button
+     */
+    Vue.component('google-sign-in', GoogleSignIn);
+
+    /**
+     * Register firebase authentication methods
+     */
     Vue.prototype.$auth = {
-      create: async (email, pass) => {
+      createUserWithEmailAndPassword: async (email, pass) => {
         try {
           return await auth.createUserWithEmailAndPassword(email, pass);
         } catch (ex) {
           return ex;
         }
       },
-      login: async (email, pass) => {
+      signInWithEmailAndPassword: async (email, pass) => {
         try {
           await auth.signInWithEmailAndPassword(email, pass);
         } catch (ex) {
           return ex;
         }
       },
-      logout: async () => {
+      signOut: async () => {
         try {
           await auth.signOut();
         } catch (ex) {

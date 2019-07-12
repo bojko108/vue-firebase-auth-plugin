@@ -1,7 +1,7 @@
 {
   "name": "vue-firebase-auth-plugin",
   "version": "0.0.1",
-  "description": "",
+  "description": "Vuejs plugin with Firebase Authentication",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^6.3.0"
+    "firebase": "^6.3.0",
+    "firebaseui": "^4.0.0"
   }
 }

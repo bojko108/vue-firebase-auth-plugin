@@ -54,7 +54,7 @@ export default {
       getCurrentUser: () => {
         return auth.currentUser;
       },
-      getUserInfo: async () => {
+      getUserRoles: async () => {
         try {
           if (auth.currentUser) {
             const userRef = firebase.database().ref(`users/${auth.currentUser.uid}`);
@@ -64,12 +64,25 @@ export default {
         } catch (ex) {
           console.log(ex);
         }
+      },
+      isAdmin: async () => {
+        try {
+          const userRoles = await getUserRoles();
+          return userRoles ? userRoles.admin : false;
+        } catch (ex) {
+          console.log(ex);
+          return false;
+        }
       }
     };
 
     auth.onAuthStateChanged(user => {
       if (user) {
-        Vue.prototype.$events.emit('login', user);
+        if (user.emailVerified) {
+          Vue.prototype.$events.emit('login', user);
+        } else {
+          Vue.prototype.$events.emit('email-not-verified', user);
+        }
       } else {
         Vue.prototype.$events.emit('logout');
       }
